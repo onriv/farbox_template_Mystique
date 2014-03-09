@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} {{year}}年{{month}}月 - {{blog.title|escape}} {% endblock %}
+{% block head_block %}
+<meta name="Keywords" content="python,google app engine">
+<meta name="Description" content="modified by 支离破碎">
+{% endblock %}
+{% block content%}
+<div id="main-inside" class="clear-block">
+
+    <!-- primary content -->
+    <div id="primary-content">
+     <div class="blocks">
+	 <h1 class="title archive-month"> {{year}}年{{month}} 月</h1>
+	 <div class="divider"></div>
+{% if entries %}
+{% for entry in entries %}
+  <!-- post -->
+  <div id="post-{{entry.key}}" class="hentry post clear-block">
+
+        <h2 class="title"><a href="/{{ entry.link }}" rel="bookmark" title="Permanent Link to {{entry.title}}">{{entry.title}}</a></h2>
+   
+        <div class="post-date">
+       <p class="day">{{entry.date|datetz:"F jS, Y"}}</p>
+     </div>
+
+     <div class="post-info clear-block ">
+      <p class="author alignleft">由<a href="/{{ entry.link }}" title="{{entry.author}}  ">{{entry.author}} </a>发表在
+	   {%for cate in entry.categories%} <a href="/category/{{cate.slug}}">{{cate.name}}</a> {%endfor%}  
+	   {%if self.is_admin%}<a href="{{entry.edit_url}}">编辑</a>  {%endif%}                </p>
+
+            <p class="comments alignright"><a href="/{{entry.link}}#comments" class=" comments">{{entry.commentcount}}条评论</a></p>
+           </div>
+    
+        <div class="post-content clear-block">
+{{entry.content_excerpt}}
+     </div>
+      
+       <div class="post-tags">
+    {% if entry.strtags %} {%for tag in entry.tags%}<a href="/tag/{{tag|urlencode}}">{{tag}}</a>,{%endfor%}{%endif%}    </div>
+
+    
+
+  </div>
+  <!-- /post -->
+ 
+ {% endfor %}
+ {% endif %}
+ 
+      <!-- page navigation -->
+      <div class="page-navigation  clear-block">
+	   {% if show_prev %}<a href="/page/{{ pageindex|add:"-1"}}">&laquo;</a>{% endif %}
+       {% if show_prev %}<a href="/page/{{ pageindex|add:"-1"}}">{{ pageindex|add:"-1"}}</a>{% endif %}
+      <span class="current">{{pageindex}} </span>
+	  {% if show_next %}<a href="/page/{{ pageindex|add:"1" }}">{{ pageindex|add:"1" }}</a>{% endif %}
+	  {% if show_next %}<a href="/page/{{ pageindex|add:"1" }}">&raquo;</a>{% endif %}
+      </div>
+      <!-- /page navigation -->
+                </div>
+    </div>
+    <!-- /primary content -->
+
+    
+
+{% include "sidebar.html" %}
+
+
+   </div>
+   {% endblock %}

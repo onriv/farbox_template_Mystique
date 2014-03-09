@@ -1,0 +1,9 @@
+      <!-- page navigation -->
+      <div class="page-navigation  clear-block">
+     {% if paginator.has_previous %}<a href="{{ paginator.previous_page_url }}">&laquo;</a>{% endif %}
+       {% if paginator.has_previous %}<a href="{{ paginator.previous_page_url }}">{{ paginator.page - 1}}</a>{% endif %}
+      <span class="current">{{paginator.page}}</span>
+    {% if paginator.has_next %}<a href="{{ paginator.next_page_url}}">{{ paginator.page + 1}}</a>{% endif %}
+    {% if paginator.has_next %}<a href="{{ paginator.next_page_url}}">&raquo;</a>{% endif %}
+      </div>
+      <!-- /page navigation -->

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} {{category.title}} - {{site.title}} {% endblock %}
+{% block head_block %}
+<meta name="Keywords" content="{{category.title}},{{title.title}}">
+<meta name="Description" content="{{category.title}}-{{title.title}}">
+{% endblock %}
+{% block content%}
+<div id="main-inside" class="clear-block">
+
+    <!-- primary content -->
+    <div id="primary-content">
+     <div class="blocks">
+	 <h1 class="title archive-category">分类{{category.title}}中的所有文章</h1>
+	 <div class="divider"></div>
+   {% set posts = get_data(path=category.title, limit=site.configs.post_per_page,pager_name="category") %}
+{% if posts %}
+{% include "post_list.html" %}
+ {% endif %}
+   {% set paginator=get_paginator("category") %}
+{% include "navigation.html" %}
+                </div>
+    </div>
+    <!-- /primary content -->
+
+    
+
+{% include "sidebar.html" %}
+
+
+   </div>
+   {% endblock %}

@@ -1,0 +1,38 @@
+{% for post in posts %}
+  <!-- post -->
+  <div class="hentry post clear-block">
+
+        <h2 class="title"><a href="{{post.url}}" rel="bookmark" title="Permanent Link to {{post.title}}">{{post.title}}</a></h2>
+   
+        <div class="post-date">
+       <p class="day">{{post.date|date("%Y-%m-%d")}}</p>
+     </div>
+     {% set category = post.full_path.split('/') %}
+     {% if category[2] %}
+     {% set category_title = category[1] %}
+     {% set category_path = category[1] %}
+     {% else %}
+     {% set category_title = "未分类" %}
+     {% set category_path = "" %}
+     {% endif %}
+     <div class="post-info clear-block ">
+      <p class="author alignleft">发表在<a href="/category/{{category_path}}">{{category_title}}</a></p>
+<span class="ds-thread-count" data-thread-key="{{post.mid}}" data-count-type="comments"></span>
+  
+           </div>
+    
+        <div class="post-content clear-block">
+{% set content = post.content | limit(400) %}
+{{content}}
+     </div>
+      
+       <div class="post-tags">
+       {% if post.tags %}{% set current_tag = post.tags%} {%for tag in current_tag[:-1]%}<a href="/tags/{{tag}}">{{tag}}</a> ,{%endfor%}<a href="/tags/{{current_tag[-1]}}">{{current_tag[-1]}}</a> {%endif%}  
+                       </div>
+
+    
+
+  </div>
+  <!-- /post
+ 
+ {% endfor %}

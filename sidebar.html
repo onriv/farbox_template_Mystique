@@ -1,0 +1,114 @@
+<div id="sidebar">
+  <ul class="blocks">
+  <li class="block">
+  <div id="instance-search-3" class="block-widget_search clear-block">
+<!-- search form -->
+<div class="search-form">
+  <form class="clear-block" action="/search" id="searchform" method="get" role="search">
+      <fieldset>
+      <div id="searchfield">
+      <input type="text" value="Search..." onfocus="if (this.value == 'Search...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search...';}" class="text clearField clearFieldBlurred" id="searchbox" name="s" rel="搜索" gtbfieldid="3">
+  
+      </div>
+
+      <input type="submit" class="submit" value="">
+      </fieldset>
+ </form>
+</div>
+<!-- /search form -->
+</div></li>
+  
+  
+  
+    <li class="block">
+      <div class="block-widget_categories clear-block" id="instance-categories-3">
+        <h3 class="title"><span>分类目录</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+        <ul>
+          {% set categories = get_data(type='folder', level=[1,2], min_posts_count=1,with_page=False)%}
+	{% for category in  sorted_by_position(categories)%}
+  <li class="cat-item">	<a href="/category/{{ category.path }}" title="查看 {{category.title}} 下的所有文章">{{category.title}}({{get_data(path=category.title,return_count=True)}})</a></li>
+ 	{%endfor%}
+        </ul>
+      </div>
+    </li>
+    <li class="block">
+      <div class="block-widget_recent_entries clear-block" id="instance-recent-posts-3">
+        <h3 class="title"><span>最近文章</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+        <ul>
+          {% set rposts= get_data('/',type = 'post', limit = site.configs.rpost ,with_page=False) %}
+        {% for post in rposts %}
+		<li><a href="{{post.url}}" title="{{post.title}}">{{post.title}}</a></li>
+        {%endfor%}
+        </ul>
+      </div>
+    </li>
+    <li class="block">
+      <div class="block-widget_tag_cloud clear-block" id="instance-tag_cloud-4">
+        <h3 class="title"><span>标签</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+        <div>{% for tag_name, tag_count in site.tags %}
+<a title="{{ tag_count }} pages" href="/tags/{{tag_name}}" style="font-size:{{ tag_count+9 }}px;">{{tag_name}}</a>
+{%endfor%}</div>
+      </div>
+    </li>
+    <li class="block">
+      <div class="block-widget_recent_comments clear-block" id="instance-recent-comments-3">
+        <h3 class="title"><span>近期评论</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+              <ul class="ds-recent-comments" data-show-title="0" data-show-time="1" data-show-avatars="0"></ul>
+      </div>
+    </li>
+<!--     <li class="block">
+      <div class="block-widget_archive clear-block" id="instance-archives-3">
+        <h3 class="title"><span>文章归档</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+        <ul>
+		{%for month, posts in archive%}
+		<li><a href="/{{archive.year}}/{{archive.month}}">{{ month }}({{posts.count}})</a></li>
+		{%endfor%}
+        </ul>
+      </div>
+    </li> -->
+    <li class="block">
+      <div class="block-widget_links clear-block" id="linkcat-2">
+        <h3 class="title"><span>友情链接</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+        <ul class='xoxo blogroll'>
+		
+<li><a href="http://sher-astro1.farbox.com">Single Fermion</a></li>
+<li><a href="http://www.huapanda.net">二丁目</a></li>
+<li><a href="http://typecho.huapanda.net/typecho">Riv</a></li>
+        </ul>
+      </div>
+    </li>
+   <!--  <li class="block">
+      <div class="block-widget_meta clear-block" id="instance-meta-3">
+        <h3 class="title"><span>功能</span></h3>
+        <div class="block-div"></div>
+        <div class="block-div-arrow"></div>
+        <ul>
+    {%if self.is_admin or self.author%}
+     <li><a href="/admin">管理</a> </li>
+    {%endif%}
+      <li>
+     {%if self.is_login%}
+       <a href="{{self.logouturl}}">注销</a>
+     {%else%}
+       <a href="/admin">登录</a>
+     {%endif%}
+         </li>
+        <li><a href="{{ blog.feedurl }}" title="订阅本站 RSS 2.0">文章 <abbr title="RSS">RSS</abbr></a></li>
+       
+        </ul>
+      </div>
+    </li> -->
+  </ul>
+</div>

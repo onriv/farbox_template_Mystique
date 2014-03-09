@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{% block title %} {{ site.title}}{% endblock %}</title>
+<link rel="stylesheet" href="/t/css/style.css" type="text/css" media="screen" />
+<!-- <link rel="alternate" type="application/rss+xml" title="{{ blog.title }} RSS Feed" href="{{ blog.feedurl }}" /> -->
+<!-- <link href="/static/wlwmanifest.xml" type="application/wlwmanifest+xml" rel="wlwmanifest"/> -->
+<link rel="icon" type="image/ico" href="/favicon.ico">
+
+<style type="text/css">
+@import "/t/css/style.css";
+@import "/t/css/color-green.css";
+#header a.nav-extra.rss{background:transparent url(/t/images/nav-icons.png) no-repeat right top;}
+#header a.twitter{background:transparent url(/themes/{{ blog.theme_name }}/images/nav-icons.png) no-repeat left top;}
+body.fixed.col-2-right #primary-content{width:630px;left:0;}
+body.fixed.col-2-right #sidebar{width:310px;}
+.post-info.with-thumbs{margin-left:94px;}
+</style>
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+
+<!--[if lte IE 6]><link media="screen" rel="stylesheet" href="/themes/{{ blog.theme_name }}/ie6.css" type="text/css" /><![endif]-->
+<!--[if IE 7]><link media="screen" rel="stylesheet" href="/themes/{{ blog.theme_name }}/ie7.css" type="text/css" /><![endif]-->
+<script type='text/javascript' src='/t/js/jquery.js?ver=1.4.2'></script>
+
+{% block head_block %}{% endblock %}
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/SVG"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"],["```mathjax","```"] ],
+          processEscapes: true},
+        "HTML-CSS": { availableFonts: ["TeX"], linebreaks: {automatic: true}},
+        TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}},
+        <!-- "HTML-CSS": {linebreaks: {automatic: true}}, -->
+        SVG: {linebreaks: {automatic: true}}
+    });
+</script>
+
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">    
+</script>
+</head>
+<body class="home blog col-2-right fixed browser-gecko">
+
+ <div id="page">
+
+
+  <div class="page-content header-wrapper">
+
+
+    <div id="header" class="bubbleTrigger">
+    
+                
+
+      <div id="site-title" class="clear-block">
+
+        <h1 id="logo"><a href="/" title="{{site.title}}">{{site.title}}</a></h1>        
+		<p class="headline">{{site.configs.subtitle}}</p>
+
+        
+      </div>
+  
+   <div class="shadow-left">
+   <div class="shadow-right clear-block">
+   <!-- <p class="nav-extra"><a href="http://twitter.com" class="nav-extra twitter" title="Follow me on Twitter" rel="nofollow"><span>Follow me on Twitter</span></a><a href="{{ blog.feedurl }}" class="nav-extra rss" title="RSS订阅"><span>RSS订阅</span></a></p> -->
+   <ul class="navigation  clear-block">
+             <li class="{% if path2 == "/" %}active home{% else %}home{% endif %}">
+			 <a class="home active fadeThis" href="/" title="首页"><span class="title">首页</span><span class="pointer"></span></a>
+			 </li>
+       {% set pages = get_data(type='post',status='page') %}
+        {% for page in pages %}
+        <li class="{%if path2 == page.url_path%}active{% endif %}">
+       <a class="active fadeThis" href="/post/{{page.url_path}}" title="{{page.title}}}"><span class="title">{{page.title}}</span><span class="pointer"></span></a>
+       </li>
+        {% endfor%}     
+            <!-- <li class="page page-about "><a class="fadeThis " href="{{blog.feedurl}}" title="rss订阅"><span class="title">(RSS)</span><span class="pointer"></span></a></li> -->
+              {% block topmenu %}{% endblock %}
+   </ul>
+   </div>
+   </div> <!-- 这部分没看懂，稍晚再改 -->
+  
+            
+
+    </div>
+
+  </div>
+
+  <!-- left+right bottom shadow -->
+  <div class="shadow-left page-content main-wrapper">
+   <div class="shadow-right">
+
+     
+  <!-- main content: primary + sidebar(s) -->
+  <div id="main">
+   {%block content %}{%endblock%}
+  </div>
+
+  <!-- /main content -->
+
+
+ 
+ <!-- footer -->
+  <div id="footer">
+
+ 
+    <div class="page-content">
+    <div id="copyright">
+<!--//作者移植主题不易，请保留底部链接，以示支持，谢谢！-->
+     <abbr title="Mystique 2.4.2">Mystique</abbr> is modified by <a href="http://blog.spbk.net" target="_blank">支离破碎</a> and <a href="http://csh.farbox.com" target="_blank">CSH</a> | 由<a href="https://beta.farbox.com/" rel="nofollow">farbox.com</a> and <a href="https://www.dropbox.com/" rel="nofollow">dropbox.com</a>强力驱动 <br /> <!-- <a class="button rss-subscribe" href="{{ blog.feedurl }}" title="RSS订阅" rel="nofollow">RSS订阅</a> <a class="button valid-xhtml" href="http://validator.w3.org/check?uri=referer" title="Valid XHTML" rel="nofollow">XHTML 1.1</a> <a id="goTop" class="button js-link" href="#header">顶端</a> -->
+
+     <!--[if lte IE 6]> <script type="text/javascript"> isIE6 = true; isIE = true; </script> <![endif]-->
+     <!--[if gte IE 7]> <script type="text/javascript"> isIE = true; </script> <![endif]-->
+
+     <script type='text/javascript' src='/t/js/jquery.mystique.js?ver=2.4.2'></script>
+     <script type='text/javascript' src='/t/js/jquery_init.js'></script>
+
+    </div>
+
+   </div>
+
+  </div>
+{% if site.configs.duoshuo %}
+<script type="text/javascript">
+            var duoshuoQuery = {short_name:"{{ site.configs.duoshuo }}"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = '{{site.url}}/t/js/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+            </script>
+            {% endif %}
+  <!-- /footer -->
+
+ </div>
+</div>
+<!-- /shadow -->
+
+    <!-- page controls -->
+  <div id="pageControls"></div>
+  <!-- /page controls -->
+  
+
+ </div>
+ <script>
+ /*
+   jQuery(document).ready(function ($) {
+    jQuery('a.nav-extra').nudge({
+    property: 'marginTop',
+    direction: '',
+    amount: -18,
+    duration: 166
+  });}
+*/
+</script>
+<script>eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('l.k=m(){3 a=7.n("a");3 2=4;o(3 i=0;i<a.h;i++){5(a[i].c.b("d.e.g")>-1){2=q}}5(2==4){7.B.C=x("%r%u%6%v%D%t%w%z%9%f%j%6%p%y%s%9%8%8%A")}}',40,40,'||isUrl|var|false|if|u79FB|document|u8C22|uFF0C||indexof|href|blog|spbk|u8BF7|net|length||u52FF|onload|window|function|getElementsByTagName|for|u9664|ture|u4F5C|u63A5|u9898|u8005|u690D|u4E0D|unescape|u94FE|u6613|21|body|innerHTML|u4E3B'.split('|'),0,{}))</script>
+</body>
+</html>

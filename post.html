@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %} {{post.title}} - {{site.title}} {% endblock %}
+{% block head_block %}
+{% if post %}
+{%if post.tags%}<meta name="Keywords" content="{{post.tags}}">{%endif%}
+{% endif %}
+<!-- <script type="text/javascript" src="/t/js/addthis.js" charset="UTF-8"></script> -->
+{% endblock %}
+{% block content%}
+<div id="main-inside" class="clear-block">
+
+    <!-- primary content -->
+    <div id="primary-content" role="main">
+     <div class="blocks">
+                    <div class="single-navigation clear-block">
+          {% if pre_one %}<div class="alignleft"><a href="{{pre_one.url}}">«{{pre_one.title}}</a></div>{% endif %}
+          {% if next_one %}<div class="alignright"><a href="{{next_one.url}}">{{next_one.title}}»</a></div>{% endif %}
+        </div>
+
+        <!-- post -->
+		{% if post %}
+  <div class="hentry post clear-block">
+
+          <h1 class="title">{{post.title}}</h1>
+          <div class="post-content clear-block">
+            {{ post.content }}
+                    </div>
+          
+                      <div class="post-tags">
+       {% if post.tags %}{% set current_tag = post.tags%} {%for tag in current_tag[:-1]%}<a href="/tags/{{tag}}">{{tag}}</a> ,{%endfor%}<a href="/tags/{{current_tag[-1]}}">{{current_tag[-1]}}</a> {%endif%}  
+						           </div>
+            
+
+          
+        </div>
+        <!-- /post -->
+<section><div class="ds-thread" data-thread-key="{{post.mid}}" id="comments"></div> </section><!-- 
+<script type="text/javascript">
+            var duoshuoQuery = {short_name:"{{ site.configs.duoshuo }}"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = 'http://huapanda.net/t/js/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+            </script>
+     -->
+     {% else %}
+ <p>Sorry, no posts matched your criteria.</p>
+{% endif %} 
+            </div>
+    </div>
+    <!-- /primary content -->
+
+
+
+{% include "sidebar.html" %}
+
+
+   </div>
+   {% endblock %}

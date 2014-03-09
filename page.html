@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} {{entry.title}} - {{blog.title}} {% endblock %}
+{% block head_block %}
+{% if entry %}
+{%if entry.strtags%}<meta name="Keywords" content="{{entry.strtags}}">{%endif%}
+{%if entry.excerpt%} <meta name="Description" content="{{entry.excerpt}}">{%endif%}
+{% endif %}
+<script type="text/javascript" src="/static/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="http://china-addthis.googlecode.com/svn/trunk/addthis.js" charset="UTF-8"></script>
+{% endblock %}
+{% block content%}
+<div id="main-inside" class="clear-block">
+
+    <!-- primary content -->
+    <div id="primary-content" role="main">
+     <div class="blocks">
+                    <div class="single-navigation clear-block">
+          <div class="alignleft"> {%for prev in entry.prev%}<a href="/{{prev.link}}">«{{prev.title}}</a>{%endfor%}</div>
+          <div class="alignright">{%for next in entry.next%}<a href="/{{next.link}}">{{next.title}}»</a>{%endfor%}</div>
+        </div>
+
+        <!-- post -->
+		{% if entry %}
+  <div id="post-{{entry.key}}" class="hentry post clear-block">
+
+          <h1 class="title">{{entry.title}}</h1>
+          <div class="post-content clear-block">
+          {%mf entry_content %}
+            {{ entry.content }}
+            {%endmf%}
+                    </div>
+          
+                      <div class="post-tags">
+       {% if entry.strtags %} {%for tag in entry.tags%}<a href="/tag/{{tag|urlencode}}">{{tag}}</a> ,{%endfor%} {%endif%}  
+						           </div>
+            
+
+          
+        </div>
+        <!-- /post -->
+
+                <table class="post-meta">
+          <tbody><tr>
+            <td>   <!-- socialize -->
+   <div class="shareThis clear-block">
+<span class="addthis_org_cn">
+<a href="http://addthis.org.cn/share/" class="control share" title="收藏&amp;分享">分享文章</a>
+</span>
+   </div>
+   <!-- /socialize -->
+ </td>            <td><a href="#respond" class="control print">发表评论</a>  </td>                        <td class="details">
+              这篇文章由<a title="{{entry.author}} " href="/{{ entry.link }}">{{entry.author}}</a>{{entry.date|datetz:"F jS, Y"}}发表
+			  在{%for cate in entry.categories%} <a href="/category/{{cate.slug}}">{{cate.name}}</a> {%endfor%}  。<a title="RSS 2.0" href="{{ blog.feedurl }}">RSS 2.0</a>订阅 或<a href="#respond">发表评论</a>         </td>
+                      </tr>
+        </tbody></table>
+        
+       
+       
+
+<!-- tabbed content -->
+      {% include "comments.html" %}
+<!-- /tabbed content -->
+     {% else %}
+ <p>Sorry, no posts matched your criteria.</p>
+{% endif %} 
+            </div>
+    </div>
+    <!-- /primary content -->
+
+
+
+{% include "sidebar.html" %}
+
+
+   </div>
+   {% endblock %}

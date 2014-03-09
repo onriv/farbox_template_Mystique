@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set keys = request.args.get('s')%}
+{% block title %} {{keys}} - {{site.title}} {% endblock %}
+{% block head_block %}
+<meta name="Keywords" content="{{keys}},{{site.title}}">
+<meta name="Description" content="{{keys}}-{{site.title}}">
+{% endblock %}
+{% block content%}
+<div id="main-inside" class="clear-block">
+
+    <!-- primary content -->
+    <div id="primary-content">
+     <div class="blocks">
+	 <h1 class="title archive-keywords">含有关键字{{keys}}的所有文章</h1>
+	 <div class="divider"></div>
+   {% set posts = get_data( limit=site.configs.post_per_page,pager_name="keywords", keywords = keys) %}
+{% if posts %}
+{% include "post_list.html" %}
+ {% endif %}
+   {% set paginator=get_paginator("keywords") %}
+{% include "navigation.html" %}
+                </div>
+    </div>
+    <!-- /primary content -->
+
+    
+
+{% include "sidebar.html" %}
+
+
+   </div>
+   {% endblock %}
