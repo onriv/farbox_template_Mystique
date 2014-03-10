@@ -69,7 +69,7 @@ body.fixed.col-2-right #sidebar{width:310px;}
              <li class="{% if path2 == "/" %}active home{% else %}home{% endif %}">
 			 <a class="home active fadeThis" href="/" title="首页"><span class="title">首页</span><span class="pointer"></span></a>
 			 </li>
-       {% set pages = get_data(type='post',status='page') %}
+       {% set pages = get_data(type='post', status='page', with_page=False) %}
         {% for page in pages %}
         <li class="{%if path2 == page.url_path%}active{% endif %}">
        <a class="active fadeThis" href="/post/{{page.url_path}}" title="{{page.title}}}"><span class="title">{{page.title}}</span><span class="pointer"></span></a>
